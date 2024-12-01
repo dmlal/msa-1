@@ -2,3 +2,4 @@ rootProject.name = 'eureka'
 
 include 'product'
 include 'order'
+include 'gateway'
