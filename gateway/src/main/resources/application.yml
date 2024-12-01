@@ -1,0 +1,26 @@
+server:
+  port: 19091
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      routes:
+        - id: order
+          uri: lb://order
+          predicates:
+            - Path=/order/**
+        - id: product
+          uri: lb://product
+          predicates:
+            - Path=/product/**
+      discovery:
+        locator:
+          enabled: true
+
+
