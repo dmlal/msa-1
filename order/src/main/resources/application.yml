@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: order
+  profiles:
+    active: dev
+
+server:
+  port: 19092
