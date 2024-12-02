@@ -29,10 +29,6 @@ public class ProductController {
 
     private final ProductService productService;
 
-    /**
-     * 상품 정보 추가
-     * admin 권한 필요
-     */
     @PostMapping("/admin")
     public ResponseEntity<AddProductResponseDto> addProduct(
             @RequestBody AddProductRequestDto requestDto,
@@ -42,11 +38,6 @@ public class ProductController {
         return ResponseEntity.ok(responseDto);
     }
 
-    /**
-     * 상품 정보 수정 (이름, 가격)
-     * admin 권한 필요
-     * 수량은 오더에서도 자주 호출하므로 API 분리
-     */
     @PatchMapping("/admin/{productId}")
     public ResponseEntity<String> updateProductInfo(
             @PathVariable Long productId,
@@ -56,10 +47,6 @@ public class ProductController {
         return ResponseEntity.ok(productService.updateProductInfo(productId, token, requestDto));
     }
 
-    /**
-     * 상품 정보 수정 (재고 수량)
-     * 모든 권한
-     */
     @PatchMapping("/{productId}/quantity/increase")
     public ResponseEntity<String> addProductQuantity(
             @PathVariable Long productId,
@@ -85,7 +72,8 @@ public class ProductController {
      */
     @DeleteMapping("(/admin/{productId}")
     public ResponseEntity<Void> deleteProductInfo(
-
+            @PathVariable Long productId,
+            @RequestHeader("Authorization") String token
     ) {
         return ResponseEntity.noContent().build();
     }
@@ -94,7 +82,7 @@ public class ProductController {
     public ResponseEntity<GetProductInfoResponseDto> getProductInfo(
             @PathVariable Long productId
     ){
-        GetProductInfoResponseDto responseDto = new GetProductInfoResponseDto(1L, "dd", 33,1);
+        GetProductInfoResponseDto responseDto = productService.getProductInfo(productId);
         return ResponseEntity.ok(responseDto);
     }
 

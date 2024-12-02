@@ -5,6 +5,7 @@ import com.sparta.msa_exam.product.common.exception.CustomException;
 import com.sparta.msa_exam.product.common.exception.ErrorCode;
 import com.sparta.msa_exam.product.controller.dto.AddProductRequestDto;
 import com.sparta.msa_exam.product.controller.dto.AddProductResponseDto;
+import com.sparta.msa_exam.product.controller.dto.GetProductInfoResponseDto;
 import com.sparta.msa_exam.product.controller.dto.UpdateProductRequestDto;
 import com.sparta.msa_exam.product.entity.Product;
 import com.sparta.msa_exam.product.repository.ProductRepository;
@@ -55,6 +56,16 @@ public class ProductService {
         Product product = getProduct(productId);
 
         product.reduceQuantity(reduceQuantity);
+    }
+
+    public GetProductInfoResponseDto getProductInfo(Long productId) {
+        Product product = getProduct(productId);
+        return new GetProductInfoResponseDto(
+                product.getId(),
+                product.getName(),
+                product.getPrice().getPrice(),
+                product.getQuantity().getQuantity()
+        );
     }
 
     private Product getProduct(Long productId) {
