@@ -54,10 +54,12 @@ public class Product {
                 .orElse(this.price);
     }
 
+    @Transactional
     public void addQuantity(long addQuantity) {
         this.quantity = this.quantity.addQuantity(addQuantity);
     }
 
+    @Transactional
     public void reduceQuantity(long reduceQuantity) {
         this.quantity = this.quantity.reduceQuantity(reduceQuantity);
     }

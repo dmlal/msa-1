@@ -43,6 +43,20 @@ public class ProductService {
         return "수정 완료";
     }
 
+    @Transactional
+    public void addProductQuantity(Long productId, long addQuantity) {
+        Product product = getProduct(productId);
+
+        product.addQuantity(addQuantity);
+    }
+
+    @Transactional
+    public void reduceProductQuantity(Long productId, long reduceQuantity) {
+        Product product = getProduct(productId);
+
+        product.reduceQuantity(reduceQuantity);
+    }
+
     private Product getProduct(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));

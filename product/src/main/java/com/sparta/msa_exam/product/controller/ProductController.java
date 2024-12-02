@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -56,9 +57,27 @@ public class ProductController {
     }
 
     /**
-     *  상품 정보 수정 (재고 수량)
-     *  모든 권한
+     * 상품 정보 수정 (재고 수량)
+     * 모든 권한
      */
+    @PatchMapping("/{productId}/quantity/increase")
+    public ResponseEntity<String> addProductQuantity(
+            @PathVariable Long productId,
+            @RequestParam long addQuantity
+    ) {
+        productService.addProductQuantity(productId, addQuantity);
+        return ResponseEntity.ok("수량 증가 완료");
+    }
+
+    @PatchMapping("/{productId}/quantity/decrease")
+    public ResponseEntity<String> reduceProductQuantity(
+            @PathVariable Long productId,
+            @RequestParam long reduceQuantity
+    ) {
+        productService.reduceProductQuantity(productId, reduceQuantity);
+        return ResponseEntity.ok("수량 감소 완료");
+    }
+
 
     /**
      * 상품 정보 삭제
