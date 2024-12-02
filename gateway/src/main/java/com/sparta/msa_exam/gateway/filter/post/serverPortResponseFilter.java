@@ -18,6 +18,7 @@ public class serverPortResponseFilter implements GlobalFilter, Ordered {
         return chain.filter(exchange).then(
                 Mono.fromRunnable(() -> {
                     String port = (String) exchange.getAttributes().get("custom-port");
+                    System.out.println("포스트필터 port = " + port);
 
                     if (port != null) {
                         exchange.getResponse().getHeaders().add("Server-Port", port);
