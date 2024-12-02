@@ -7,7 +7,7 @@ import io.jsonwebtoken.Claims;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -45,12 +45,12 @@ public class CustomAuthenticationFilter implements GlobalFilter, Ordered {
         Integer userId = claims.get("userId", Integer.class);
         String userRole = claims.get("userRole", String.class);
 
-        exchange.getRequest().mutate()
+        ServerHttpRequest httpRequest = exchange.getRequest().mutate()
                 .header("X-User-Id", userId.toString())
                 .header("X-User-Role", userRole)
                 .build();
 
-        return chain.filter(exchange);
+        return chain.filter(exchange.mutate().request(httpRequest).build());
     }
 
 

@@ -12,15 +12,15 @@ spring:
     gateway:
       routes:
         - id: order
-          uri: lb://order
+          uri: lb://ORDER
           predicates:
             - Path=/orders/**
         - id: product
-          uri: lb://product
+          uri: lb://PRODUCT
           predicates:
             - Path=/products/**
         - id: auth
-          uri: lb://auth
+          uri: lb://AUTH
           predicates:
             - Path=/auth/**
       discovery:

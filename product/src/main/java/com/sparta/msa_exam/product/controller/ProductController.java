@@ -23,7 +23,7 @@ public class ProductController {
      * 상품 정보 추가
      * admin 권한 필요
      */
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<String> addProduct(
             // @Authen
     ){
@@ -35,7 +35,7 @@ public class ProductController {
      * 상품 정보 수정
      * admin 권한 필요
      */
-//    @PatchMapping("/{productId}")
+//    @PatchMapping("/admin/{productId}")
 //    public ResponseEntity<String> updateProductInfo(
 //
 //    ){
@@ -46,7 +46,7 @@ public class ProductController {
      * 상품 정보 삭제
      * admin 권한 필요
      */
-    @DeleteMapping("/{productId}")
+    @DeleteMapping("(/admin/{productId}")
     public ResponseEntity<Void> deleteProductInfo(
 
     ) {

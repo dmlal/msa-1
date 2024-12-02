@@ -39,7 +39,6 @@ public class JwtProvider {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-
     }
 
     public boolean isAdmin(String token) {
