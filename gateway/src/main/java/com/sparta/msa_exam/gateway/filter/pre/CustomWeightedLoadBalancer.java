@@ -23,6 +23,8 @@ public class CustomWeightedLoadBalancer implements GlobalFilter, Ordered {
 
         String newUri = originalUri.replace("lb://product", "http://localhost:" + port);
 
+        exchange.getAttributes().put("custom-port", String.valueOf(port));
+
         ServerHttpRequest httpRequest = exchange.getRequest().mutate().uri(URI.create(newUri)).build();
         return chain.filter(exchange.mutate().request(httpRequest).build());
     }
