@@ -29,6 +29,8 @@ ext {
 }
 
 dependencies {
+    implementation 'io.jsonwebtoken:jjwt:0.12.6'
+
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -38,6 +40,11 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testImplementation 'io.projectreactor:reactor-test'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.mysql:mysql-connector-j'
 }
 
 dependencyManagement {
@@ -48,4 +55,7 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+bootJar {
+    mainClass = 'com.sparta.msa_exam.auth.AuthApplication'
 }

@@ -1,9 +1,17 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:19090/eureka/
+
 spring:
-  application:
-    name: auth
-  profiles:
-    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
-server:
-  port: 19095
-
+  jpa:
+    database: mysql
+    open-in-view: false
+    hibernate:
+      ddl-auto: create

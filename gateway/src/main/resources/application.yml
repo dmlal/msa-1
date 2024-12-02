@@ -14,11 +14,11 @@ spring:
         - id: order
           uri: lb://order
           predicates:
-            - Path=/order/**
+            - Path=/orders/**
         - id: product
           uri: lb://product
           predicates:
-            - Path=/product/**
+            - Path=/products/**
       discovery:
         locator:
           enabled: true
