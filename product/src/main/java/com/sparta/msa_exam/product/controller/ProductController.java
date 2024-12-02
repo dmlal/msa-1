@@ -4,11 +4,13 @@ package com.sparta.msa_exam.product.controller;
 import com.sparta.msa_exam.product.controller.dto.AddProductRequestDto;
 import com.sparta.msa_exam.product.controller.dto.AddProductResponseDto;
 import com.sparta.msa_exam.product.controller.dto.GetProductInfoResponseDto;
+import com.sparta.msa_exam.product.controller.dto.UpdateProductRequestDto;
 import com.sparta.msa_exam.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,15 +42,23 @@ public class ProductController {
     }
 
     /**
-     * 상품 정보 수정
+     * 상품 정보 수정 (이름, 가격)
      * admin 권한 필요
+     * 수량은 오더에서도 자주 호출하므로 API 분리
      */
-//    @PatchMapping("/admin/{productId}")
-//    public ResponseEntity<String> updateProductInfo(
-//
-//    ){
-//
-//    }
+    @PatchMapping("/admin/{productId}")
+    public ResponseEntity<String> updateProductInfo(
+            @PathVariable Long productId,
+            @RequestHeader("Authorization") String token,
+            @RequestBody UpdateProductRequestDto requestDto
+            ) {
+        return ResponseEntity.ok(productService.updateProductInfo(productId, token, requestDto));
+    }
+
+    /**
+     *  상품 정보 수정 (재고 수량)
+     *  모든 권한
+     */
 
     /**
      * 상품 정보 삭제

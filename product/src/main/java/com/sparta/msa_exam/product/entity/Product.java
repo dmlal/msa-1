@@ -2,6 +2,7 @@ package com.sparta.msa_exam.product.entity;
 
 import com.sparta.msa_exam.product.common.exception.CustomException;
 import com.sparta.msa_exam.product.common.exception.ErrorCode;
+import com.sparta.msa_exam.product.controller.dto.UpdateProductRequestDto;
 import com.sparta.msa_exam.product.vo.Price;
 import com.sparta.msa_exam.product.vo.Quantity;
 import jakarta.persistence.Embedded;
@@ -9,10 +10,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -38,6 +42,16 @@ public class Product {
         this.name = name;
         this.price = Price.of(price);
         this.quantity = Quantity.of(quantity);
+    }
+
+    @Transactional
+    public void updateProduct(UpdateProductRequestDto requestDto) {
+        Optional.ofNullable(requestDto.getName())
+                .ifPresent(this::validateName);
+        this.name = Optional.ofNullable(requestDto.getName()).orElse(this.name);
+        this.price = Optional.ofNullable(requestDto.getPrice())
+                .map(Price::of)
+                .orElse(this.price);
     }
 
     public void addQuantity(long addQuantity) {
