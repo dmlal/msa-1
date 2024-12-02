@@ -68,6 +68,15 @@ public class ProductService {
         );
     }
 
+    @Transactional
+    public void deleteProductInfo(Long productId, String token) {
+        checkRoleAdmin(token);
+
+        Product product = getProduct(productId);
+
+        productRepository.delete(product);
+    }
+
     private Product getProduct(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));

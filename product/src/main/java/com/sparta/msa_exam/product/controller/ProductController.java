@@ -65,16 +65,12 @@ public class ProductController {
         return ResponseEntity.ok("수량 감소 완료");
     }
 
-
-    /**
-     * 상품 정보 삭제
-     * admin 권한 필요
-     */
-    @DeleteMapping("(/admin/{productId}")
+    @DeleteMapping("/admin/{productId}")
     public ResponseEntity<Void> deleteProductInfo(
             @PathVariable Long productId,
             @RequestHeader("Authorization") String token
     ) {
+        productService.deleteProductInfo(productId, token);
         return ResponseEntity.noContent().build();
     }
 
