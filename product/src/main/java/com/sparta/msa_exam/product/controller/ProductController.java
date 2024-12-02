@@ -1,13 +1,18 @@
 package com.sparta.msa_exam.product.controller;
 
 
+import com.sparta.msa_exam.product.controller.dto.AddProductRequestDto;
+import com.sparta.msa_exam.product.controller.dto.AddProductResponseDto;
 import com.sparta.msa_exam.product.controller.dto.GetProductInfoResponseDto;
+import com.sparta.msa_exam.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,16 +24,19 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
+    private final ProductService productService;
+
     /**
      * 상품 정보 추가
      * admin 권한 필요
      */
     @PostMapping("/admin")
-    public ResponseEntity<String> addProduct(
-            // @Authen
-    ){
-
-        return ResponseEntity.ok("dd");
+    public ResponseEntity<AddProductResponseDto> addProduct(
+            @RequestBody AddProductRequestDto requestDto,
+            @RequestHeader("Authorization") String token
+    ) {
+        AddProductResponseDto responseDto = productService.addProduct(requestDto, token);
+        return ResponseEntity.ok(responseDto);
     }
 
     /**
@@ -57,7 +65,7 @@ public class ProductController {
     public ResponseEntity<GetProductInfoResponseDto> getProductInfo(
             @PathVariable Long productId
     ){
-        GetProductInfoResponseDto responseDto = new GetProductInfoResponseDto(1L, "dd", 33);
+        GetProductInfoResponseDto responseDto = new GetProductInfoResponseDto(1L, "dd", 33,1);
         return ResponseEntity.ok(responseDto);
     }
 
