@@ -15,11 +15,12 @@ public class AuthConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // csrf 추가 설정 없음.  그래서 이렇게 함
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/signIn", "/auth/signUp", "/auth/").permitAll()
-                        .requestMatchers("/auth/changeRoles/**").hasRole("ADMIN")
-                        .anyRequest().denyAll()   // 인증된 유저는 접근 가능이 아닌 모두 접근 금지.
+                        .requestMatchers("/auth/changeRoles/**").permitAll()
+                        .requestMatchers("/auth/validate/**").permitAll()
+                        .anyRequest().denyAll()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -9,6 +9,7 @@ public enum ErrorCode {
 
     /*  400 BAD_REQUEST : 잘못된 요청  */
     EXPIRED_TOKEN(400, "만료된 토큰입니다."),
+    INVALID_TOKEN(400, "유효하지않은 토큰입니다."),
     INVALID_USERNAME(400, "유저네임은 필수입니다."),
     INVALID_PASSWORD(400, "비밀번호는 필수입니다."),
     INVALID_USERNAME_LENGTH(400, "3자 이상 15자 이하만 가능합니다."),

@@ -42,4 +42,8 @@ public class User {
         this.password = password;
         this.userRole = userRole;
     }
+
+    public void changeRole() {
+        this.userRole = (this.userRole == UserRole.USER) ? UserRole.ADMIN : UserRole.USER;
+    }
 }

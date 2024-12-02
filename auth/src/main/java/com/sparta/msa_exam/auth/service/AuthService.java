@@ -44,6 +44,49 @@ public class AuthService {
     }
 
 
+    @Transactional
+    public void changeRoles(Long targetUserId, String token) {
+        String accessToken = token.substring(7);
+        if (!jwtProvider.isAdmin(accessToken)) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        }
+
+        User user = getUser(targetUserId);
+
+        user.changeRole();
+    }
+
+    public Boolean validateToken(String token) {
+        validateTokenFormat(token);
+        String accessToken = token.substring(7);
+
+        if (!jwtProvider.validateToken(accessToken)) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        }
+        return true;
+    }
+
+    public Boolean validateAdminToken(String token) {
+        validateTokenFormat(token);
+        String accessToken = token.substring(7);
+
+        if (!jwtProvider.isAdmin(accessToken)) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        }
+        return true;
+    }
+
+    private void validateTokenFormat(String token) {
+        if (token == null || !token.startsWith("Bearer ")) {
+            throw new CustomException(ErrorCode.INVALID_TOKEN);
+        }
+    }
+
+    private User getUser(Long targetUserId) {
+        return authRepository.findById(targetUserId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+    }
+
     private User getUser(SignInRequestDto requestDto) {
         Username username = Username.of(requestDto.getUsername());
         return authRepository.findByUsername(username)

@@ -6,8 +6,11 @@ import com.sparta.msa_exam.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +37,28 @@ public class AuthController {
         return ResponseEntity.ok()
                 .header("Authorization", "Bearer " + token)
                 .body("로그인 성공");
+    }
+
+    @PatchMapping("/changeRoles/{userId}")
+    public ResponseEntity<String> changeRoles(
+            @PathVariable Long userId,
+            @RequestHeader("Authorization") String token
+    ) {
+        authService.changeRoles(userId, token);
+        return ResponseEntity.ok("권한 변경 완료");
+    }
+
+    @PostMapping("/validate")
+    public ResponseEntity<Boolean> validateToken(
+            @RequestHeader("Authorization") String token
+    ) {
+        return ResponseEntity.ok(authService.validateToken(token));
+    }
+
+    @PostMapping("/validate/admin")
+    public ResponseEntity<Boolean> validateAdminToken(
+            @RequestHeader("Authorization") String token
+    ) {
+        return ResponseEntity.ok(authService.validateAdminToken(token));
     }
 }
