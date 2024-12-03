@@ -19,7 +19,7 @@ Gateway
 
 ### Order
 - 주문 생성  <br>
-  RabbitMQ
+  RabbitMQ  <br>
   보상 트랜잭션 (재고 감소로 인한 주문 실패 시)
 - 주문 상태 변경 <br>
 - 주문 조회 <br>
