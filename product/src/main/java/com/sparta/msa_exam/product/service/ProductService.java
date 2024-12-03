@@ -11,6 +11,8 @@ import com.sparta.msa_exam.product.entity.Product;
 import com.sparta.msa_exam.product.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final AuthClient authClient;
 
+    @CacheEvict(value = "productListCache", allEntries = true)
     public AddProductResponseDto addProduct(AddProductRequestDto requestDto, String token) {
         checkRoleAdmin(token);
 

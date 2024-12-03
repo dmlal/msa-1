@@ -26,7 +26,7 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding productOrderCancelledQueue(Queue productOrderCancelledQueue, TopicExchange orderExchange) {
+    public Binding productOrderCancelledBinding(Queue productOrderCancelledQueue, TopicExchange orderExchange) {
         return BindingBuilder.bind(productOrderCancelledQueue).to(orderExchange).with("order.*");
     }
 

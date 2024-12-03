@@ -6,6 +6,7 @@ import com.sparta.msa_exam.order.common.exception.CustomException;
 import com.sparta.msa_exam.order.common.exception.ErrorCode;
 import com.sparta.msa_exam.order.controller.dto.CreateOrderRequestDto;
 import com.sparta.msa_exam.order.controller.dto.CreateOrderResponseDto;
+import com.sparta.msa_exam.order.controller.dto.GetOrderResponseDto;
 import com.sparta.msa_exam.order.controller.dto.OrderProductDto;
 import com.sparta.msa_exam.order.entity.Order;
 import com.sparta.msa_exam.order.entity.OrderProduct;
@@ -19,6 +20,7 @@ import com.sparta.msa_exam.order.vo.Quantity;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,4 +96,11 @@ public class OrderService {
         return productClient.getProductInfo(productId);
     }
 
+    @Cacheable(cacheNames = "orderInfo", key = "#userId + '-' + #orderId")
+    public GetOrderResponseDto getOrderInfo(Long userId, Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
+
+        return new GetOrderResponseDto(orderId, userId, order.getTotalPrice(), order.getOrderStatus());
+    }
 }
