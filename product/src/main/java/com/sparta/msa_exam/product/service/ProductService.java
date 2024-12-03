@@ -89,6 +89,7 @@ public class ProductService {
                 .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
     }
 
+    @Cacheable(cacheNames = "productListCache", unless = "#result == null || #result.isEmpty()")
     public List<GetProductInfoResponseDto> getProductList() {
         List<Product> productList = productRepository.findAll();
         return productList.stream()
