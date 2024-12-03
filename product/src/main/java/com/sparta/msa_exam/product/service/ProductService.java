@@ -11,7 +11,11 @@ import com.sparta.msa_exam.product.entity.Product;
 import com.sparta.msa_exam.product.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import java.awt.print.Pageable;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -80,6 +84,17 @@ public class ProductService {
     private Product getProduct(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_NOT_FOUND));
+    }
+
+    public List<GetProductInfoResponseDto> getProductList() {
+        List<Product> productList = productRepository.findAll();
+        return productList.stream()
+                .map(product -> new GetProductInfoResponseDto(
+                        product.getId(),
+                        product.getName(),
+                        product.getPrice().getPrice(),
+                        product.getQuantity().getQuantity()
+                )).toList();
     }
 
     private void checkRoleAdmin(String token) {

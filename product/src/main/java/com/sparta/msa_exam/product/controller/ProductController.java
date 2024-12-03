@@ -7,6 +7,9 @@ import com.sparta.msa_exam.product.controller.dto.GetProductInfoResponseDto;
 import com.sparta.msa_exam.product.controller.dto.UpdateProductRequestDto;
 import com.sparta.msa_exam.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,10 +88,8 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<GetProductInfoResponseDto>> getProductList(
-            // 페이저블
-    ){
-//        List<GetProductInfoResponseDto> productList = productService.getProductList();
-//        return ResponseEntity.ok(productList);
-        return ResponseEntity.ok(new ArrayList<>());
+    ) {
+        List<GetProductInfoResponseDto> productList = productService.getProductList();
+        return ResponseEntity.ok(productList);
     }
 }
