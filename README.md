@@ -25,7 +25,7 @@ Gateway
 - 주문 조회 <br>
   레디스 캐싱
 - 기타 <br>
-  값객체 (price, quantity)
+  값객체 (price, quantity)  <br>
   루트 애그리거트 (Order 엔티티)
 
 ### Product
@@ -36,7 +36,7 @@ Gateway
 - 상품 목록 조회 <br>
   레디스 캐싱
 - 기타  <br>
-  값객체 (price, quantity)
+  값객체 (price, quantity)  <br>
   루트 애그리거트 (Product 엔티티)
 
 ### Gateway
