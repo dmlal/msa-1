@@ -30,7 +30,7 @@ public class CustomAuthorizationFilter implements GlobalFilter, Ordered {
         String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR);
+            throw new CustomException(ErrorCode.UNAUTHORIZED);
         }
 
         String token = authHeader.substring(7);
