@@ -45,5 +45,27 @@ Gateway
 - 커스텀 로드밸런싱 필터
 - 서버 포트 필터
 
-  
+<br>
+<br>
+
+### 사용 기술
+
+#### 백엔드
+- JDK 17
+- SpringBoot 3.4.0
+- Spring Security
+- RabbitMQ
+- Resilience4j
+
+#### 데이터베이스
+- JPA
+- mySQL
+- Redis
+
+#### 인프라
+- Eureka
+- Docker
+- Docker Compose
+
+
   
