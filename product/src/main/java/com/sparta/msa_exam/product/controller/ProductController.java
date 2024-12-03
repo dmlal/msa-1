@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +52,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.updateProductInfo(productId, token, requestDto));
     }
 
-    @PatchMapping("/{productId}/quantity/increase")
+    @PutMapping("/{productId}/quantity/increase")
     public ResponseEntity<String> addProductQuantity(
             @PathVariable Long productId,
             @RequestParam long addQuantity
@@ -60,7 +61,7 @@ public class ProductController {
         return ResponseEntity.ok("수량 증가 완료");
     }
 
-    @PatchMapping("/{productId}/quantity/decrease")
+    @PutMapping("/{productId}/quantity/decrease")
     public ResponseEntity<String> reduceProductQuantity(
             @PathVariable Long productId,
             @RequestParam long reduceQuantity

@@ -15,3 +15,9 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: create
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

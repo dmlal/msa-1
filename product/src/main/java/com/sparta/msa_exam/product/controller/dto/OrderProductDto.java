@@ -1,4 +1,4 @@
-package com.sparta.msa_exam.order.client.dto;
+package com.sparta.msa_exam.product.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductInfoResponseDto {
+public class OrderProductDto {
 
-    private Long id;
-    private String name;
-    private long price;
+    private Long productId;
     private long quantity;
 
 }

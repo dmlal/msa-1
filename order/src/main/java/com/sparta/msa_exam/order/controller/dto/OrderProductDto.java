@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderRequestDto {
+public class OrderProductDto {
 
-    private List<Long> productIdList;
+    private Long productId;
+    private Long quantity;
 
 }

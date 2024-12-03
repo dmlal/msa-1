@@ -15,3 +15,15 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: create
+    properties:
+      hibernate:
+        use_version_always: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        auto-startup: false
